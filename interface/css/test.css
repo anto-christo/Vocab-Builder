@@ -1,0 +1,19 @@
+.iknow {background-color: #008CBA;
+	font-size: 16px;
+padding: 12px 28px;
+border-radius: 8px;
+width: 100%;
+padding-top:20px
+	} /* Blue */
+
+.idont {background-color: #f44336;
+	font-size: 16px;
+padding: 12px 28px;
+	border-radius: 8px;
+	width: 100%;
+	padding-top:20px
+	} /* Red */ 
+
+.toppadding {
+	padding-top: 20px;
+}
