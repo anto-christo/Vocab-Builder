@@ -8,7 +8,7 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $sql = "SELECT id, question, option1, option2, option3, option4, answer FROM questions ORDER BY RAND() LIMIT 1";
+    $sql = "SELECT id, question, option1, option2, option3, option4, answer FROM questions ORDER BY RAND() LIMIT 5";
     $result = $conn->query($sql);
 
 ?>
@@ -51,48 +51,44 @@
 <h4>Username :<?= $_SESSION['username'] ?></h4>
 <br><hr>
 
+
+<form method="POST" action="view_test.php">
+
 <?php
+  
 if ($result->num_rows > 0) {
     // output data of each row
       while($row = $result->fetch_assoc()) {
 
-        echo '
-          <form method="POST" action="view_test.php">
-            <div class="card">
-              <div class="card-body">
-                <h4>'.$row["question"].'</h4>
-              <input type="radio" name="ans" value="1"> '.$row["option1"].'<br>
-              <input type="radio" name="ans" value="2"> '.$row["option2"].'<br>
-              <input type="radio" name="ans" value="3"> '.$row["option3"].'<br>
-              <input type="radio" name="ans" value="4"> '.$row["option4"].'<br>
+    echo '<div class="card">
+     <div class="card-body">
+      <h4>'.$row["question"].'</h4>
+    <input type="radio" name="ans['.$row["id"].']" value="1"> '.$row["option1"].'<br>
+    <input type="radio" name="ans['.$row["id"].']" value="2"> '.$row["option2"].'<br>
+    <input type="radio" name="ans['.$row["id"].']" value="3"> '.$row["option3"].'<br>
+    <input type="radio" name="ans['.$row["id"].']" value="4"> '.$row["option4"].'<br>
+    </div>
+  </div>';
 
-              <button type="submit" name="ans_btn" class="btn btn-success">Submit Answer</button>
-              </div>
-            </div>
-          </form>
-        ';
-
-        $correct_ans = $row['answer'];
-
-        if(isset($_POST['ans_btn'])){
-    $user_ans = $_POST['ans'];
-
-    echo $user_ans;
-    echo $correct_ans;
-
-  if($user_ans == $correct_ans){
-    echo '<h4>Correct answer</h4>';
   }
 
-  else{
-    echo '<h4>Wrong answer</h4>';
-  }
-  }
+}
 
-      }
-  } else {
+else {
       echo "0 results"; 
   }
+
+?>
+    <button type="submit" name="ans_btn" class="btn btn-success">Submit Answer</button>
+</form>
+
+<?php
+
+    if(isset($_POST['ans_btn'])){
+      foreach ($_POST['ans'] as $answer) {
+        echo $answer;
+      }   
+    }
   
   $conn->close();
 ?>
