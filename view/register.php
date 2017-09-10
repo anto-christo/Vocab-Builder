@@ -18,14 +18,35 @@
     	$email = $_POST['email'];
     	$password = $_POST['password'];
 
-    	$sql = "INSERT INTO users (name,username,email,password) VALUES ('$name','$username','$email','$password')";
+    	$check_user = "SELECT username FROM users WHERE username = '$username'";
+    	$check_email = "SELECT email FROM users WHERE email = '$email'";
 
-    	if($conn->query($sql) === TRUE){
+    	$result_user = $conn->query($check_user);
+    	$result_email = $conn->query($check_email);
+
+    	if($result_user->num_rows == 1){
+    		echo '
+    		<script>alert("Username already exists")</script>  		
+    	';
+    	}
+
+    	else if($result_email->num_rows == 1){
+    		echo '
+    		<script>alert("Email already registered")</script>  		
+    	';
+    	}
+
+    	else{
+    	$store_data = "INSERT INTO users (name,username,email,password) VALUES ('$name','$username','$email','$password')";
+
+    	if($conn->query($store_data) === TRUE){
     		$_SESSION['username'] = $username;
     		$_SESSION['name'] = $name;
 
     		header("location: view_test.php");
      	}
+
+     }
     }
 
     else{
