@@ -7,8 +7,10 @@
 
     $word = $_POST["word"];
     $meaning = $_POST["meaning"];
+    $type = $_POST["type"];
+    $example = $_POST["example"];
     
-    $sql = "INSERT INTO words (word,meaning) VALUES ('$word','$meaning')";
+    $sql = "INSERT INTO words (word,type,meaning,example) VALUES ('$word','$type','$meaning','$example')";
     
 ?>
 
@@ -33,9 +35,21 @@
     </div>
   </div>
   <div class="form-group row">
+    <label for="type" class="col-sm-2 col-form-label">Type</label>
+    <div class="col-sm-8">
+      <input type="text" class="form-control" name="type" id="type" required>
+    </div>
+  </div>
+  <div class="form-group row">
     <label for="meaning" class="col-sm-2 col-form-label">Meaning</label>
     <div class="col-sm-8">
       <textarea type="text" class="form-control" name="meaning" id="meaning" required></textarea>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="example" class="col-sm-2 col-form-label">Example</label>
+    <div class="col-sm-8">
+      <textarea type="text" class="form-control" name="example" id="example" required></textarea>
     </div>
   </div>
 

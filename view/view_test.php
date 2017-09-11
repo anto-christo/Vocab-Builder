@@ -46,19 +46,15 @@
   </div>
 </nav>
 
-<br><hr>
-<h4>Name :<?= $_SESSION['name'] ?></h4>
-<h4>Username :<?= $_SESSION['username'] ?></h4>
-<br><hr>
-
-
 <form method="POST" action="view_test.php">
 
 <?php
   
 if ($result->num_rows > 0) {
-    // output data of each row
-      while($row = $result->fetch_assoc()) {
+    
+    $test_answers = array();
+
+    while($row = $result->fetch_assoc()) {
 
     echo '<div class="card">
      <div class="card-body">
@@ -70,6 +66,8 @@ if ($result->num_rows > 0) {
     </div>
   </div>';
 
+    array_push($test_answers,$row["answer"]);
+
   }
 
 }
@@ -79,15 +77,27 @@ else {
   }
 
 ?>
-    <button type="submit" name="ans_btn" class="btn btn-success">Submit Answer</button>
+    <br><center><button type="submit" name="ans_btn" class="btn btn-success">Submit Quiz</button></center><br><br>
 </form>
 
 <?php
 
     if(isset($_POST['ans_btn'])){
-      foreach ($_POST['ans'] as $answer) {
-        echo $answer;
-      }   
+
+      $count = 0;
+
+      foreach ($_POST['ans'] as $key => $new_val)
+      {
+        if (isset($test_answers[$key])) // belongs to old array?
+        {
+           if ($test_answers[$key] != $new_val) // has changed?
+            $count++; // catch it
+        }
+      }
+
+      $count++;
+
+      echo 'You got '.$count.' wrong';
     }
   
   $conn->close();

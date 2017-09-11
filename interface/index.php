@@ -2,18 +2,18 @@
 <html lang="en" class="no-js">
 <head>
 
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     
-	<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
 
-	<link rel="stylesheet" href="css/reset.css"> <!-- CSS reset -->
-	<link rel="stylesheet" href="css/style.css"> <!-- Gem style -->
-	<script src="js/modernizr.js"></script> <!-- Modernizr -->
-  	
-	<title>Log In &amp; Sign Up Form</title>
+  <link rel="stylesheet" href="css/reset.css"> <!-- CSS reset -->
+  <link rel="stylesheet" href="css/style.css"> <!-- Gem style -->
+  <script src="js/modernizr.js"></script> <!-- Modernizr -->
+    
+  <title>Log In &amp; Sign Up Form</title>
 
 <!--
 graph
@@ -112,9 +112,9 @@ stroke-dashoffset:0
 
 <?php
 
-	session_start();
+  session_start();
 
-	$_SESSION["username"];
+  $_SESSION["username"];
 
     $conn = new mysqli ("localhost","root","","vocab_test");
 
@@ -126,6 +126,7 @@ stroke-dashoffset:0
       
         $username = $_POST['username'];
         $password = $_POST['password'];
+        $type = $_POST['user_type'];
 
         $validate = "SELECT username,password FROM users WHERE username='$username' AND password='$password'";
 
@@ -137,224 +138,241 @@ stroke-dashoffset:0
 
         else{
             $_SESSION['username'] = $username;
-            $_SESSION['name'] = $name;
             $_SESSION['loggedin'] = TRUE;
+            $_SESSION['type'] = $type;
 
-            header("location: index.php");
+            if($_POST['user_type'] == "editor"){
+              header("location: ../view/editor.html");
+            }
+
+            else if($_POST['user_type'] == "lit_pro"){
+              header("location: ../view/lit_expert.html");
+            }
+
+            else if($_POST['user_type'] == "admin"){
+              header("location: ../view/view_test.php");
+            }
+
+            else if($_POST['user_type'] == "user"){
+              header("location: index.php");
+            }
         }
     }
 
 
-	if(isset($_POST['logout'])){
-		
-		$_SESSION['loggedin'] = FALSE;
-		header("location: index.php");
-	} 
+  if(isset($_POST['logout'])){
+    
+    $_SESSION['loggedin'] = FALSE;
+    header("location: index.php");
+  } 
 
 
     if (isset($_POST['register'])) {
  
     if ($_POST['password'] == $_POST['confirmpassword']) 
     {
-    	$name = $_POST['name'];
-    	$username = $_POST['username'];
-    	$email = $_POST['email'];
-    	$password = $_POST['password'];
+      $name = $_POST['name'];
+      $username = $_POST['username'];
+      $email = $_POST['email'];
+      $password = $_POST['password'];
 
-    	$check_user = "SELECT username FROM users WHERE username = '$username'";
-    	$check_email = "SELECT email FROM users WHERE email = '$email'";
+      $check_user = "SELECT username FROM users WHERE username = '$username'";
+      $check_email = "SELECT email FROM users WHERE email = '$email'";
 
-    	$result_user = $conn->query($check_user);
-    	$result_email = $conn->query($check_email);
+      $result_user = $conn->query($check_user);
+      $result_email = $conn->query($check_email);
 
-    	if($result_user->num_rows == 1){
-    		echo '
-    		<script>alert("Username already exists")</script>  		
-    	';
-    	}
+      if($result_user->num_rows == 1){
+        echo '
+        <script>alert("Username already exists")</script>     
+      ';
+      }
 
-    	else if($result_email->num_rows == 1){
-    		echo '
-    		<script>alert("Email already registered")</script>  		
-    	';
-    	}
+      else if($result_email->num_rows == 1){
+        echo '
+        <script>alert("Email already registered")</script>      
+      ';
+      }
 
-    	else{
-    	$store_data = "INSERT INTO users (name,username,email,password) VALUES ('$name','$username','$email','$password')";
+      else{
+      $store_data = "INSERT INTO users (name,username,email,password) VALUES ('$name','$username','$email','$password')";
 
-    	if($conn->query($store_data) === TRUE){
-    		$_SESSION['username'] = $username;
-    		$_SESSION['name'] = $name;
-    		$_SESSION['loggedin'] = TRUE;
+      if($conn->query($store_data) === TRUE){
+        $_SESSION['username'] = $username;
+        $_SESSION['name'] = $name;
+        $_SESSION['loggedin'] = TRUE;
 
-    		header("location: index.php");
-     	}
+        header("location: index.php");
+      }
 
      }
     }
 
     else{
-    	echo '
-    		<script>alert("Both the password dont match")</script>  		
-    	';
+      echo '
+        <script>alert("Both the password dont match")</script>      
+      ';
     }
 }
 
 ?>
 
 
-	<header role="banner">
-		
-		<nav class="main-nav">
-			<ul>
-				<!-- inser more links here -->
-				<?php
-					if(!$_SESSION["loggedin"]){
-						echo '
-							<li><a class="cd-signin" href="#0">Sign in</a></li>
-							<li><a class="cd-signup" href="#0">Sign up</a></li>
-						';
-					}
+  <header role="banner">
+    
+    <nav class="main-nav">
+      <ul>
+        <!-- inser more links here -->
+        <?php
+          if(!$_SESSION["loggedin"]){
+            echo '
+              <li><a class="cd-signin" href="#0">Sign in</a></li>
+              <li><a class="cd-signup" href="#0">Sign up</a></li>
+            ';
+          }
 
-					if($_SESSION["loggedin"]){
-						echo '<li style="color:white"> Welcome, '.$_SESSION["username"].'</li>
-						<li><form method="POST" action="index.php"><button type="submit" name="logout" class="btn btn-danger">Logout</button></form></li>';
-					}
-				?>
-			</ul>
-		</nav>
-	</header>
+          if($_SESSION["loggedin"]){
+            echo '<li style="color:white"> Welcome, '.$_SESSION["username"].'</li>
+            <li><form method="POST" action="index.php"><button type="submit" name="logout" class="btn btn-danger">Logout</button></form></li>
+            ';
 
-	<div class="cd-user-modal"> <!-- this is the entire modal form, including the background -->
-		<div class="cd-user-modal-container"> <!-- this is the container wrapper -->
-			<ul class="cd-switcher">
-				<li><a href="#0">Sign in</a></li>
-				<li><a href="#0">New account</a></li>
-			</ul>
+            if($_SESSION["type"] == "editor"){
+              echo '
+                <li><a href="../view/editor.html"><button name="dashboard" class="btn btn-success">Dashboard</button></a></li>
+              ';
+            }
+          }
+        ?>
+      </ul>
+    </nav>
+  </header>
 
-			<?php
+  <div class="cd-user-modal"> <!-- this is the entire modal form, including the background -->
+    <div class="cd-user-modal-container"> <!-- this is the container wrapper -->
+      <ul class="cd-switcher">
+        <li><a href="#0">Sign in</a></li>
+        <li><a href="#0">New account</a></li>
+      </ul>
 
-				echo '
+      <?php
 
-					<div id="cd-login"> <!-- log in form -->
-				<form id="form_login" method="POST" action="index.php" class="cd-form">
-					<p class="fieldset">
-						<label class="image-replace cd-username" for="signin-username">Username</label>
-						<input class="full-width has-padding has-border" id="signin-username" type="text" placeholder="Username" name="username">
-						<span class="cd-error-message">Error message here!</span>
-					</p>
+        echo '
 
-					<p class="fieldset">
-						<label class="image-replace cd-password" for="signin-password">Password</label>
-						<input class="full-width has-padding has-border" id="signin-password" type="password"  placeholder="Password" name="password">
-						
-						<span class="cd-error-message">Error message here!</span>
-					</p>
-					<br>
-					
+          <div id="cd-login"> <!-- log in form -->
+        <form id="form_login" method="POST" action="index.php" class="cd-form">
+          <p class="fieldset">
+            <label class="image-replace cd-username" for="signin-username">Username</label>
+            <input class="full-width has-padding has-border" id="signin-username" type="text" placeholder="Username" name="username">
+            <span class="cd-error-message">Error message here!</span>
+          </p>
 
+          <p class="fieldset">
+            <label class="image-replace cd-password" for="signin-password">Password</label>
+            <input class="full-width has-padding has-border" id="signin-password" type="password"  placeholder="Password" name="password">
+            
+            <span class="cd-error-message">Error message here!</span>
+          </p>
+          <br>
+          
 
-
-
-
-
-
-
-<input type="radio" id="editor" unchecked>
-						<label for="editor">Editor</label>
-					<br>
-					<input type="radio" id="literature_professional" unchecked>
-						<label for="literature_professional">Literature Professional</label>	
-					<br>
-					<input type="radio" id="admin" unchecked>
-						<label for="admin">Admin</label>
+          <input name="user_type" value="user" type="radio" id="user" checked>
+            <label for="editor">User</label>
+          <br>
+          <input name="user_type" value="editor" type="radio" id="editor" unchecked>
+            <label for="editor">Editor</label>
+          <br>
+          <input type="radio" name="user_type" value="lit_pro" id="literature_professional" unchecked>
+            <label for="literature_professional">Literature Professional</label>  
+          <br>
+          <input type="radio" id="admin" name="user_type" value="admin" unchecked>
+            <label for="admin">Admin</label>
 
 
-					</p>
+          </p>
 
-					<p class="fieldset">
-						<button onclick="login_func()" class="btn btn-info" type="submit" name="login" value="Login">Login</button>
-					</p>
-				</form>
-				
-				<!-- <a href="#0" class="cd-close-form">Close</a> -->
-			</div> <!-- cd-login -->
+          <p class="fieldset">
+            <button onclick="login_func()" class="btn btn-info" type="submit" name="login" value="Login">Login</button>
+          </p>
+        </form>
+        
+        <!-- <a href="#0" class="cd-close-form">Close</a> -->
+      </div> <!-- cd-login -->
 
-				';
+        ';
 
-			?>
+      ?>
 
-			<?php
+      <?php
 
-				echo '
+        echo '
 
-					<div id="cd-signup"> <!-- sign up form -->
-				<form id="form_register" class="cd-form" method="POST" action="index.php">
+          <div id="cd-signup"> <!-- sign up form -->
+        <form id="form_register" class="cd-form" method="POST" action="index.php">
 
-					<p class="fieldset">
-						<label class="image-replace cd-username" for="signup-name">Name</label>
-						<input class="full-width has-padding has-border" id="signup-name" type="text" placeholder="Name" name="name">
-						<span class="cd-error-message">Error message here!</span>
-					</p>
+          <p class="fieldset">
+            <label class="image-replace cd-username" for="signup-name">Name</label>
+            <input class="full-width has-padding has-border" id="signup-name" type="text" placeholder="Name" name="name">
+            <span class="cd-error-message">Error message here!</span>
+          </p>
 
-					<p class="fieldset">
-						<label class="image-replace cd-username" for="signup-username">Username</label>
-						<input class="full-width has-padding has-border" id="signup-username" type="text" placeholder="Username" name="username">
-						<span class="cd-error-message">Error message here!</span>
-					</p>
+          <p class="fieldset">
+            <label class="image-replace cd-username" for="signup-username">Username</label>
+            <input class="full-width has-padding has-border" id="signup-username" type="text" placeholder="Username" name="username">
+            <span class="cd-error-message">Error message here!</span>
+          </p>
 
-					<p class="fieldset">
-						<label class="image-replace cd-email" for="signup-email">E-mail</label>
-						<input class="full-width has-padding has-border" id="signup-email" type="email" placeholder="E-mail" name="email">
-						<span class="cd-error-message">Error message here!</span>
-					</p>
+          <p class="fieldset">
+            <label class="image-replace cd-email" for="signup-email">E-mail</label>
+            <input class="full-width has-padding has-border" id="signup-email" type="email" placeholder="E-mail" name="email">
+            <span class="cd-error-message">Error message here!</span>
+          </p>
 
-					<p class="fieldset">
-						<label class="image-replace cd-password" for="signup-password">Password</label>
-						<input class="full-width has-padding has-border" id="signup-password" type="password"  placeholder="Password" name="password">
-						<span class="cd-error-message">Error message here!</span>
-					</p>
+          <p class="fieldset">
+            <label class="image-replace cd-password" for="signup-password">Password</label>
+            <input class="full-width has-padding has-border" id="signup-password" type="password"  placeholder="Password" name="password">
+            <span class="cd-error-message">Error message here!</span>
+          </p>
 
-					<p class="fieldset">
-						<label class="image-replace cd-password" for="signup-conpassword">Password</label>
-						<input class="full-width has-padding has-border" id="signup-conpassword" type="password"  placeholder="Confirm Password" name="confirmpassword">
-						<span class="cd-error-message">Error message here!</span>
-					</p>
+          <p class="fieldset">
+            <label class="image-replace cd-password" for="signup-conpassword">Password</label>
+            <input class="full-width has-padding has-border" id="signup-conpassword" type="password"  placeholder="Confirm Password" name="confirmpassword">
+            <span class="cd-error-message">Error message here!</span>
+          </p>
 
-					<p class="fieldset">
-						<button class="btn btn-info" type="submit" name="register" value="Create account">Create Account</button>
-					</p>
-				</form>
+          <p class="fieldset">
+            <button class="btn btn-info" type="submit" name="register" value="Create account">Create Account</button>
+          </p>
+        </form>
 
-				<!-- <a href="#0" class="cd-close-form">Close</a> -->
-			</div> <!-- cd-signup -->
+        <!-- <a href="#0" class="cd-close-form">Close</a> -->
+      </div> <!-- cd-signup -->
 
-				';					
+        ';          
 
-			?>
+      ?>
 
-			<div id="cd-reset-password"> <!-- reset password form -->
-				<p class="cd-form-message">Lost your password? Please enter your email address. You will receive a link to create a new password.</p>
+      <div id="cd-reset-password"> <!-- reset password form -->
+        <p class="cd-form-message">Lost your password? Please enter your email address. You will receive a link to create a new password.</p>
 
-				<form class="cd-form">
-					<p class="fieldset">
-						<label class="image-replace cd-email" for="reset-email">E-mail</label>
-						<input class="full-width has-padding has-border" id="reset-email" type="email" placeholder="E-mail">
-						<span class="cd-error-message">Error message here!</span>
-					</p>
+        <form class="cd-form">
+          <p class="fieldset">
+            <label class="image-replace cd-email" for="reset-email">E-mail</label>
+            <input class="full-width has-padding has-border" id="reset-email" type="email" placeholder="E-mail">
+            <span class="cd-error-message">Error message here!</span>
+          </p>
 
-					<p class="fieldset">
-						<input class="full-width has-padding" type="submit" value="Reset password">
-					</p>
-				</form>
+          <p class="fieldset">
+            <input class="full-width has-padding" type="submit" value="Reset password">
+          </p>
+        </form>
 
-				<p class="cd-form-bottom-message"><a href="#0">Back to log-in</a></p>
-			</div> <!-- cd-reset-password -->
-			<a href="#0" class="cd-close-form">Close</a>
-		</div> <!-- cd-user-modal-container -->
-	</div> <!-- cd-user-modal -->
+        <p class="cd-form-bottom-message"><a href="#0">Back to log-in</a></p>
+      </div> <!-- cd-reset-password -->
+      <a href="#0" class="cd-close-form">Close</a>
+    </div> <!-- cd-user-modal-container -->
+  </div> <!-- cd-user-modal -->
 
-	 <script type="text/javascript">
+   <script type="text/javascript">
   function login_func() {
     document.getElementById("form_login").submit();
    }  
@@ -377,9 +395,9 @@ stroke-dashoffset:0
   <div class="col-sm-4"  align="center">
     <div class="thumbnail">
       <div class="circle1" >
-			<img src="img/science.png">
-		
-			</div>
+      <img src="img/science.png">
+    
+      </div>
       <p><strong class="deckdecor">Science</strong></p>
       <a href="deck1.html" style="text-decoration:none">
       <button class="button button1">Learn</button>
@@ -389,9 +407,9 @@ stroke-dashoffset:0
   <div class="col-sm-4" align="center">
     <div class="thumbnail">
       <div class="circle1" >
-			<img src="img/Medicine.png">
-		
-			</div>
+      <img src="img/Medicine.png">
+    
+      </div>
       <p><strong>Medicine</strong></p>
 
       <button class="btn">Learn</button>
@@ -400,9 +418,9 @@ stroke-dashoffset:0
   <div class="col-sm-4" align="center">
     <div class="thumbnail">
       <div class="circle1" >
-			<img src="img/Nature.png">
-		
-			</div>
+      <img src="img/Nature.png">
+    
+      </div>
       <p><strong class="deckdecor">Nature</strong></p>
             <button class="btn">Learn</button>
 
@@ -422,34 +440,34 @@ stroke-dashoffset:0
 <div class="well well-lg">
    
 
-	<div class="col-md-6">
-		<div class="deckalign">
-		<a href="deck1.html" style="text-decoration:none">
-			<div class="circle1" >
-			<img src="img/science.png">
-		
-			</div>
-			<div align="left" style="padding:25px">
-			<h2>Science</h2>
-			</div>
-		</a>
-		</div>
-	</div>
-	<div class="col-md-6">
-		<div class="deckalign">
-		<a href="deck1.html" style="text-decoration:none">
-			<div class="circle1" >
-			<img src="img/science.png">
-		
-			</div>
-			<div align="left" style="padding:25px">
-			<h2>Science</h2>
-			</div>
-		</a>
-		</div>
+  <div class="col-md-6">
+    <div class="deckalign">
+    <a href="deck1.html" style="text-decoration:none">
+      <div class="circle1" >
+      <img src="img/science.png">
+    
+      </div>
+      <div align="left" style="padding:25px">
+      <h2>Science</h2>
+      </div>
+    </a>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="deckalign">
+    <a href="deck1.html" style="text-decoration:none">
+      <div class="circle1" >
+      <img src="img/science.png">
+    
+      </div>
+      <div align="left" style="padding:25px">
+      <h2>Science</h2>
+      </div>
+    </a>
+    </div>
 
 
-	</div>
+  </div>
 </div>
 -->
 
@@ -460,7 +478,7 @@ stroke-dashoffset:0
  <div class="well well-lg" style="background-color: rgb(255,255,255)">
 
 
-	<div class="prog">
+  <div class="prog">
   <!--  Item  -->
   <!--  Item  -->
   <!--  Item  -->
@@ -486,9 +504,9 @@ stroke-dashoffset:0
 <div class="well well-lg" style="background-color: rgb(255,255,255)">
 <div >
 <div>
-	<h2 align="center" style="margin-bottom:20px">Total Progress</h2>
-	    <div class="w3-container w3-blue w3-round-large" style="width:25%">25%</div>
-  		</div>
+  <h2 align="center" style="margin-bottom:20px">Total Progress</h2>
+      <div class="w3-container w3-blue w3-round-large" style="width:25%">25%</div>
+      </div>
 </div>
 </div>
 

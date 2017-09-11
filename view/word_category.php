@@ -5,7 +5,10 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $sql = "SELECT id, word, meaning FROM words WHERE deck=''";
+    $get_decks = "SELECT name FROM decks";
+    $res_decks = $conn->query($get_decks);
+
+    $sql = "SELECT id,word,type,meaning,example FROM words WHERE deck=''";
     $result = $conn->query($sql);
 
 ?>
@@ -18,42 +21,31 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
-      </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-  </div>
-</nav>
-
-<br>
-
 <form method="POST" action="word_category.php">
 
 <center>
 
-<input type="text" name="deck_name" placeholder="Enter Deck Name" required><br><br>
-<button type="submit" name="submit" value="Create Deck" class="btn btn-success">Create Deck</button><br><hr>
 
-</center>
+<form method="POST" action="word_category.php">
   <?php
+  if($res_decks->num_rows > 0){
+    while($row1 = $res_decks->fetch_assoc()){
+
+      echo '
+          <input type="radio" name="deck" value="'.$row1["name"].'">'.$row1["name"].'
+      ';
+
+    }
+
+  }
+  ?>
+
+  <br><br><button name="submit" type="submit" class="btn btn-success">Create Decks</button>
+
+<hr>
+</center>
+
+<?php
 if ($result->num_rows > 0) {
 
     // output data of each row
@@ -65,10 +57,13 @@ if ($result->num_rows > 0) {
 
             echo '
 
-            <div id="'.$row["id"].'" class="card" style="width: 24%;height:200px;float:left;margin:6px;background-color:white">
+            <div id="'.$row["id"].'" class="card" style="width: 24%;height:400px;float:left;margin:6px;background-color:white">
                 <div class="card-body">
                     <h4 class="card-title">'.$row["word"].'</h4>
+                    <p class="card-text">'.$row["type"].'</p><br><br>
                     <p class="card-text">'.$row["meaning"].'</p><br><br>
+                    <p class="card-text">'.$row["example"].'</p><br><br>
+
 
                     <center><input type="checkbox" name="check_list[]" value="'.$row["word"].'"></center>
                 </div>
@@ -90,7 +85,7 @@ if ($result->num_rows > 0) {
 
       if(!empty($_POST['check_list'])){
         
-        $deck_name = $_POST["deck_name"];
+        $deck_name = $_POST['deck'];
 
         foreach($_POST['check_list'] as $selected){
 
