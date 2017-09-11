@@ -215,6 +215,12 @@ stroke-dashoffset:0
     }
 }
 
+  if(isset($_POST['deck_name'])){
+    $_SESSION['deck_name'] = $_POST['deck_name'];
+
+    header("location: deck1.php");
+  }
+
 ?>
 
 
@@ -391,6 +397,7 @@ stroke-dashoffset:0
 <div class="col-md-8" >
 <div class="well well-lg" style="background-color: rgb(255,255,255)">
 
+<form method="POST" action="index.php">
 <div class="row text-center">
   <div class="col-sm-4"  align="center">
     <div class="thumbnail">
@@ -399,12 +406,33 @@ stroke-dashoffset:0
     
       </div>
       <p><strong class="deckdecor">Science</strong></p>
-      <a href="deck1.html" style="text-decoration:none">
-      <button class="button button1">Learn</button>
-      </a>
+      <button type="submit" name="deck_name" value="science" class="button button1">Learn</button>
     </div>
   </div>
-  <div class="col-sm-4" align="center">
+
+   <div class="col-sm-4"  align="center">
+    <div class="thumbnail">
+      <div class="circle1" >
+      <img src="img/Medicine.png">
+    
+      </div>
+      <p><strong class="deckdecor">Medicine</strong></p>
+      <button type="submit" name="deck_name" value="medicine" class="button button1">Learn</button>
+    </div>
+  </div>
+
+  <div class="col-sm-4"  align="center">
+    <div class="thumbnail">
+      <div class="circle1" >
+      <img src="img/Nature.png">
+    
+      </div>
+      <p><strong class="deckdecor">Nature</strong></p>
+      <button type="submit" name="deck_name" value="nature" class="button button1">Learn</button>
+    </div>
+  </div>
+
+<!--   <div class="col-sm-4" align="center">
     <div class="thumbnail">
       <div class="circle1" >
       <img src="img/Medicine.png">
@@ -426,10 +454,10 @@ stroke-dashoffset:0
 
       
     </div>
-  </div>
+  </div> -->
 </div>
 </div>
-
+</form>
 
 
 

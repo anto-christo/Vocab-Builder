@@ -97,7 +97,9 @@ else {
 
       $count++;
 
-      echo 'You got '.$count.' wrong';
+      $_SESSION['score'] = $count;
+
+      header("location: test_score.php");
     }
   
   $conn->close();

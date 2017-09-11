@@ -1,3 +1,21 @@
+<?php
+	
+	session_start();
+
+	$deck_name = $_SESSION['deck_name'];
+
+	$conn = new mysqli("localhost","root","","vocab_test");
+
+	if($conn->connect_error){
+		die("Connection failed: ".$conn->connect_error);
+	}
+
+	$sql = "SELECT id,word,type,meaning,example FROM words WHERE deck='$deck_name'";
+
+	$result = $conn->query($sql);
+?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -161,7 +179,7 @@
     <div class="row"><br />
         <div class="col-md-12">
             <div class="prg">
-                <div class="prg success-color" style="width: 56%;">
+                <div class="prg success-color" id="div_value" style="width: 56%;">
                     <div class="success-label">56%
                     </div>
                 </div>
@@ -171,11 +189,13 @@
     
 </div>
 
+<?php
 
+	if($result->num_rows > 0){
 
-
-
-<div class="container">
+		while($row = $result->fetch_assoc()){
+			echo '
+		<div class="container">
     <div class="row">
      <div class="col-sm-10 col-sm-offset-1">
          <div class="col-md-10 col-sm-6">
@@ -193,10 +213,10 @@
                        
                         <div class="content">
                             <div class="main">
-                                <h3 class="name">Word</h3>
+                                <h3 class="name">'.$row["word"].'</h3>
                                 
                             </div>
-                            <div class="footer">
+                            <div class="footer" id="'.$row["id"].'">
                                 <button class="btn btn-simple" onclick="rotateCard(this)">
                                     <i class="fa fa-mail-forward"></i> Tap to see meaning
                                 </button>
@@ -209,16 +229,16 @@
                         </div>
                         <div class="content">
                             <div class="main">
-                                <h4 class="text-left">Meaning</h4>
-                                <p class="text-left">Example</p>
+                                <h4 class="text-left">'.$row["meaning"].'</h4>
+                                <p class="text-left">'.$row["example"].'</p>
 
 
 
             <div class="toppadding">
-	<button class="iknow" onclick="rotateCard(this)"  ">I know this word</button>
+	<a href="#'.$row["id"].'"><button class="iknow" onclick="rotateCard(this)"  ">I know this word</button></a>
 	</div>
 	<div class="toppadding">
-	<button class="idont" onclick="rotateCard(this)" style="padding-top:20px">I know this word</button>
+	<a href="#'.$row["id"].'"><button class="idont" onclick="rotateCard(this)" style="padding-top:20px">I know this word</button></a>
 	</div>
 
   <button onclick="myFunction()">Try it</button>
@@ -248,14 +268,11 @@
 
 
 </div>
+	';
+		}
+	}
 
-
-
-
-
-
-
-
+?>
 
 </body>
 </html>
