@@ -128,7 +128,7 @@ stroke-dashoffset:0
         $password = $_POST['password'];
         $type = $_POST['user_type'];
 
-        $validate = "SELECT username,password FROM users WHERE username='$username' AND password='$password'";
+        $validate = "SELECT username,password,type FROM users WHERE username='$username' AND password='$password'";
 
         $result = $conn->query($validate);
 
@@ -137,24 +137,40 @@ stroke-dashoffset:0
         }
 
         else{
-            $_SESSION['username'] = $username;
-            $_SESSION['loggedin'] = TRUE;
-            $_SESSION['type'] = $type;
+            while($row = $result->fetch_assoc()){
 
-            if($_POST['user_type'] == "editor"){
+            if($_POST['user_type'] == "editor" && $row["type"]==3){
+              $_SESSION['username'] = $username;
+                $_SESSION['loggedin'] = TRUE;
+                $_SESSION['type'] = $type;
               header("location: ../view/editor.html");
             }
 
-            else if($_POST['user_type'] == "lit_pro"){
+            else if($_POST['user_type'] == "lit_pro" && $row["type"]==2){
+              $_SESSION['username'] = $username;
+                $_SESSION['loggedin'] = TRUE;
+                $_SESSION['type'] = $type;
               header("location: ../view/lit_expert.html");
             }
 
-            else if($_POST['user_type'] == "admin"){
+            else if($_POST['user_type'] == "admin" && $row["type"]==4){
+              $_SESSION['username'] = $username;
+                $_SESSION['loggedin'] = TRUE;
+                $_SESSION['type'] = $type;
               header("location: ../view/view_test.php");
             }
 
-            else if($_POST['user_type'] == "user"){
+            else if($_POST['user_type'] == "user" && $row["type"]==1){
+              $_SESSION['username'] = $username;
+                $_SESSION['loggedin'] = TRUE;
+                $_SESSION['type'] = $type;
               header("location: index.php");
+            }
+
+            else{
+              echo '<script>alert("Incorrect username or password")</script>'; 
+            }
+
             }
         }
     }
@@ -175,6 +191,7 @@ stroke-dashoffset:0
       $username = $_POST['username'];
       $email = $_POST['email'];
       $password = $_POST['password'];
+      $user_type = $_POST['user_type'];
 
       $check_user = "SELECT username FROM users WHERE username = '$username'";
       $check_email = "SELECT email FROM users WHERE email = '$email'";
@@ -195,12 +212,21 @@ stroke-dashoffset:0
       }
 
       else{
-      $store_data = "INSERT INTO users (name,username,email,password) VALUES ('$name','$username','$email','$password')";
+
+      if($user_type == "user")
+      $store_data = "INSERT INTO users (name,username,email,password,request) VALUES ('$name','$username','$email','$password','1')";
+
+    else if($user_type == "lit_pro")
+      $store_data = "INSERT INTO users (name,username,email,password,request) VALUES ('$name','$username','$email','$password','2')";
+
+    if($user_type == "editor")
+      $store_data = "INSERT INTO users (name,username,email,password,request) VALUES ('$name','$username','$email','$password','3')";
 
       if($conn->query($store_data) === TRUE){
         $_SESSION['username'] = $username;
         $_SESSION['name'] = $name;
         $_SESSION['loggedin'] = TRUE;
+        $_SESSION['type'] = "user";
 
         header("location: index.php");
       }
@@ -245,6 +271,12 @@ stroke-dashoffset:0
             if($_SESSION["type"] == "editor"){
               echo '
                 <li><a href="../view/editor.html"><button name="dashboard" class="btn btn-success">Dashboard</button></a></li>
+              ';
+            }
+
+            if($_SESSION["type"] == "lit_pro"){
+              echo '
+                <li><a href="../view/lit_expert.html"><button name="dashboard" class="btn btn-success">Dashboard</button></a></li>
               ';
             }
           }
@@ -343,7 +375,17 @@ stroke-dashoffset:0
             <label class="image-replace cd-password" for="signup-conpassword">Password</label>
             <input class="full-width has-padding has-border" id="signup-conpassword" type="password"  placeholder="Confirm Password" name="confirmpassword">
             <span class="cd-error-message">Error message here!</span>
-          </p>
+          </p><br>
+
+          <input name="user_type" value="user" type="radio" id="user" checked>
+            <label for="editor">User</label>
+          <br>
+          <input name="user_type" value="editor" type="radio" id="editor" unchecked>
+            <label for="editor">Editor</label>
+          <br>
+          <input type="radio" name="user_type" value="lit_pro" id="literature_professional" unchecked>
+            <label for="literature_professional">Literature Professional</label>  
+          <br>
 
           <p class="fieldset">
             <button class="btn btn-info" type="submit" name="register" value="Create account">Create Account</button>
