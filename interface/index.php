@@ -663,52 +663,12 @@ stroke-dashoffset:0
 </div>
 
 
- <div class="col-md-4">
- <div class="well well-lg" style="background-color: rgb(255,255,255)">
-
-
-  <div class="prog">
-  <!--  Item  -->
-  <!--  Item  -->
-  <!--  Item  -->
-  <div data-name="Daily Goal" data-percent="13%" align="center"> <svg viewBox="-10 -10 220 220">
-    <g fill="none" stroke-width="12" transform="translate(100,100)">
-      <path d="M 0,-100 A 100,100 0 0,1 86.6,-50" stroke="url(#cl1)"/>
-      <path d="M 86.6,-50 A 100,100 0 0,1 86.6,50" stroke="url(#cl2)"/>
-      <path d="M 86.6,50 A 100,100 0 0,1 0,100" stroke="url(#cl3)"/>
-      <path d="M 0,100 A 100,100 0 0,1 -86.6,50" stroke="url(#cl4)"/>
-      <path d="M -86.6,50 A 100,100 0 0,1 -86.6,-50" stroke="url(#cl5)"/>
-      <path d="M -86.6,-50 A 100,100 0 0,1 0,-100" stroke="url(#cl6)"/>
-    </g>
-    </svg> <svg viewBox="-10 -10 220 220">
-    <path d="M200,100 C200,44.771525 155.228475,0 100,0 C44.771525,0 0,44.771525 0,100 C0,155.228475 44.771525,200 100,200 C155.228475,200 200,155.228475 200,100 Z" stroke-dashoffset="81"></path>
-    </svg> </div>
-  <!--  Item  -->
- 
-</div>
-
-
-  </div>
-
+<div class="col-md-4"> 
 <div class="well well-lg" style="background-color: rgb(255,255,255)">
-<div >
-<div>
-  <h2 align="center" style="margin-bottom:20px">Total Progress</h2>
-      <div class="w3-container w3-blue w3-round-large" style="width:25%">25%</div>
-      </div>
-</div>
-</div>
-
-  </div>
-  
-</div>
 
 
- <div class="col-md-4">
- <div class="well well-lg" style="background-color: rgb(255,255,255)">
 
-
-  <div class="prog">
+<div class="prog" style="padding-left: 40px">
   <!--  Item  -->
   <!--  Item  -->
   <!--  Item  -->
@@ -734,7 +694,7 @@ stroke-dashoffset:0
 
 
     echo '
-      <div data-name="Daily Goal" data-percent="'.$score.'%" align="center"> <svg viewBox="-10 -10 220 220">
+      <div data-name="Daily Goal" data-percent="'.$score.'%"> <svg viewBox="-10 -10 220 220">
     <g fill="none" stroke-width="12" transform="translate(100,100)">
       <path d="M 0,-100 A 100,100 0 0,1 86.6,-50" stroke="url(#cl1)"/>
       <path d="M 86.6,-50 A 100,100 0 0,1 86.6,50" stroke="url(#cl2)"/>
@@ -753,18 +713,16 @@ stroke-dashoffset:0
 </div>
 
 
-  </div>
 
-<div class="well well-lg" style="background-color: rgb(255,255,255)">
-<div >
-<div>
-  <h2 align="center" style="margin-bottom:20px">Total Progress</h2>
-      <div class="w3-container w3-blue w3-round-large" style="width:25%">25%</div>
-      </div>
+
+
+
 </div>
 </div>
-
   </div>
+  
+</div>
+
   
 </div>
 
