@@ -65,129 +65,203 @@
 
 	<title>Log In &amp; Sign Up Form</title>
 </head>
-<body class='bg-secondary'>
+<body style="background-color:#DCD0D0">
 	<header role="banner">
-		
-		<nav class="main-nav">
-			<ul>
-				<!-- inser more links here -->
-				<li><a class="cd-signin" href="#0">Sign in</a></li>
-				<li><a class="cd-signup" href="#0">Sign up</a></li>
-			</ul>
-		</nav>
-	</header>
+    
+    <nav class="main-nav">
+      <ul>
+      <li class="navbar-header nav_head">INEPTER </li>
+        <li><a class="nav_designhome " href="#">Home</a></li>
+              <li><a class="nav_designtest" href="#">Test</a></li>
 
-	<div class="cd-user-modal"> <!-- this is the entire modal form, including the background -->
-		<div class="cd-user-modal-container"> <!-- this is the container wrapper -->
-			<ul class="cd-switcher">
-				<li><a href="#0">Sign in</a></li>
-				<li><a href="#0">New account</a></li>
-			</ul>
 
-			<div id="cd-login"> <!-- log in form -->
-				<form class="cd-form">
-					<p class="fieldset">
-						<label class="image-replace cd-email" for="signin-email">E-mail</label>
-						<input class="full-width has-padding has-border" id="signin-email" type="email" placeholder="E-mail">
-						<span class="cd-error-message">Error message here!</span>
-					</p>
 
-					<p class="fieldset">
-						<label class="image-replace cd-password" for="signin-password">Password</label>
-						<input class="full-width has-padding has-border" id="signin-password" type="text"  placeholder="Password">
-						<a href="#0" class="hide-password">Hide</a>
-						<span class="cd-error-message">Error message here!</span>
-					</p>
+        <!-- inser more links here -->
+        <?php
+          if(!$_SESSION["loggedin"]){
+            echo '
+              <li><a class="cd-signin" href="#0">Sign in</a></li>
+              <li><a class="cd-signup" href="#0">Sign up</a></li>
+            ';
+          }
 
-					<p class="fieldset">
-						<input type="checkbox" id="remember-me" checked>
-						<label for="remember-me">Remember me</label>
-					</p>
+          if($_SESSION["loggedin"]){
+            echo '<li style="color:white"> Welcome, '.$_SESSION["username"].'</li>
+            <li><form method="POST" action="index.php"><button type="submit" name="logout" class="btn btn-danger">Logout</button></form></li>
+            ';
 
-					<p class="fieldset">
-						<input class="full-width" type="submit" value="Login">
-					</p>
-				</form>
-				
-				<p class="cd-form-bottom-message"><a href="#0">Forgot your password?</a></p>
-				<!-- <a href="#0" class="cd-close-form">Close</a> -->
-			</div> <!-- cd-login -->
+            if($_SESSION["type"] == "editor"){
+              echo '
+                <li><a href="../view/editor.html"><button name="dashboard" class="btn btn-success">Dashboard</button></a></li>
+              ';
+            }
 
-			<div id="cd-signup"> <!-- sign up form -->
-				<form class="cd-form">
-					<p class="fieldset">
-						<label class="image-replace cd-username" for="signup-username">Username</label>
-						<input class="full-width has-padding has-border" id="signup-username" type="text" placeholder="Username">
-						<span class="cd-error-message">Error message here!</span>
-					</p>
+            if($_SESSION["type"] == "lit_pro"){
+              echo '
+                <li><a href="../view/lit_expert.html"><button name="dashboard" class="btn btn-success">Dashboard</button></a></li>
+              ';
+            }
+          }
+        ?>
+      </ul>
+    </nav>
+  </header>
 
-					<p class="fieldset">
-						<label class="image-replace cd-email" for="signup-email">E-mail</label>
-						<input class="full-width has-padding has-border" id="signup-email" type="email" placeholder="E-mail">
-						<span class="cd-error-message">Error message here!</span>
-					</p>
+  <div class="cd-user-modal"> <!-- this is the entire modal form, including the background -->
+    <div class="cd-user-modal-container"> <!-- this is the container wrapper -->
+      <ul class="cd-switcher">
+        <li><a href="#0">Sign in</a></li>
+        <li><a href="#0">New account</a></li>
+      </ul>
 
-					<p class="fieldset">
-						<label class="image-replace cd-password" for="signup-password">Password</label>
-						<input class="full-width has-padding has-border" id="signup-password" type="text"  placeholder="Password">
-						<a href="#0" class="hide-password">Hide</a>
-						<span class="cd-error-message">Error message here!</span>
-					</p>
+      <?php
 
-					<p class="fieldset">
-						<input type="checkbox" id="accept-terms">
-						<label for="accept-terms">I agree to the <a href="#0">Terms</a></label>
-					</p>
+        echo '
 
-					<p class="fieldset">
-						<input class="full-width has-padding" type="submit" value="Create account">
-					</p>
-				</form>
+          <div id="cd-login"> <!-- log in form -->
+        <form id="form_login" method="POST" action="index.php" class="cd-form">
+          <p class="fieldset">
+            <label class="image-replace cd-username" for="signin-username">Username</label>
+            <input class="full-width has-padding has-border" id="signin-username" type="text" placeholder="Username" name="username">
+            <span class="cd-error-message">Error message here!</span>
+          </p>
 
-				<!-- <a href="#0" class="cd-close-form">Close</a> -->
-			</div> <!-- cd-signup -->
+          <p class="fieldset">
+            <label class="image-replace cd-password" for="signin-password">Password</label>
+            <input class="full-width has-padding has-border" id="signin-password" type="password"  placeholder="Password" name="password">
+            
+            <span class="cd-error-message">Error message here!</span>
+          </p>
+          <br>
+          
 
-			<div id="cd-reset-password"> <!-- reset password form -->
-				<p class="cd-form-message">Lost your password? Please enter your email address. You will receive a link to create a new password.</p>
+          <input name="user_type" value="user" type="radio" id="user" checked>
+            <label for="editor">User</label>
+          <br>
+          <input name="user_type" value="editor" type="radio" id="editor" unchecked>
+            <label for="editor">Editor</label>
+          <br>
+          <input type="radio" name="user_type" value="lit_pro" id="literature_professional" unchecked>
+            <label for="literature_professional">Literature Professional</label>  
+          <br>
+          <input type="radio" id="admin" name="user_type" value="admin" unchecked>
+            <label for="admin">Admin</label>
 
-				<form class="cd-form">
-					<p class="fieldset">
-						<label class="image-replace cd-email" for="reset-email">E-mail</label>
-						<input class="full-width has-padding has-border" id="reset-email" type="email" placeholder="E-mail">
-						<span class="cd-error-message">Error message here!</span>
-					</p>
 
-					<p class="fieldset">
-						<input class="full-width has-padding" type="submit" value="Reset password">
-					</p>
-				</form>
+          </p>
 
-				<p class="cd-form-bottom-message"><a href="#0">Back to log-in</a></p>
-			</div> <!-- cd-reset-password -->
-			<a href="#0" class="cd-close-form">Close</a>
-		</div> <!-- cd-user-modal-container -->
-	</div> <!-- cd-user-modal -->
+          <p class="fieldset">
+            <button onclick="login_func()" class="btn btn-info" type="submit" name="login" value="Login">Login</button>
+          </p>
+        </form>
+        
+        <!-- <a href="#0" class="cd-close-form">Close</a> -->
+      </div> <!-- cd-login -->
+
+        ';
+
+      ?>
+
+      <?php
+
+        echo '
+
+          <div id="cd-signup"> <!-- sign up form -->
+        <form id="form_register" class="cd-form" method="POST" action="index.php">
+
+          <p class="fieldset">
+            <label class="image-replace cd-username" for="signup-name">Name</label>
+            <input class="full-width has-padding has-border" id="signup-name" type="text" placeholder="Name" name="name">
+            <span class="cd-error-message">Error message here!</span>
+          </p>
+
+          <p class="fieldset">
+            <label class="image-replace cd-username" for="signup-username">Username</label>
+            <input class="full-width has-padding has-border" id="signup-username" type="text" placeholder="Username" name="username">
+            <span class="cd-error-message">Error message here!</span>
+          </p>
+
+          <p class="fieldset">
+            <label class="image-replace cd-email" for="signup-email">E-mail</label>
+            <input class="full-width has-padding has-border" id="signup-email" type="email" placeholder="E-mail" name="email">
+            <span class="cd-error-message">Error message here!</span>
+          </p>
+
+          <p class="fieldset">
+            <label class="image-replace cd-password" for="signup-password">Password</label>
+            <input class="full-width has-padding has-border" id="signup-password" type="password"  placeholder="Password" name="password">
+            <span class="cd-error-message">Error message here!</span>
+          </p>
+
+          <p class="fieldset">
+            <label class="image-replace cd-password" for="signup-conpassword">Password</label>
+            <input class="full-width has-padding has-border" id="signup-conpassword" type="password"  placeholder="Confirm Password" name="confirmpassword">
+            <span class="cd-error-message">Error message here!</span>
+          </p><br>
+
+          <input name="user_type" value="user" type="radio" id="user" checked>
+            <label for="editor">User</label>
+          <br>
+          <input name="user_type" value="editor" type="radio" id="editor" unchecked>
+            <label for="editor">Editor</label>
+          <br>
+          <input type="radio" name="user_type" value="lit_pro" id="literature_professional" unchecked>
+            <label for="literature_professional">Literature Professional</label>  
+          <br>
+
+          <p class="fieldset">
+            <button class="btn btn-info" type="submit" name="register" value="Create account">Create Account</button>
+          </p>
+        </form>
+
+        <!-- <a href="#0" class="cd-close-form">Close</a> -->
+      </div> <!-- cd-signup -->
+
+        ';          
+
+      ?>
+
+      <div id="cd-reset-password"> <!-- reset password form -->
+        <p class="cd-form-message">Lost your password? Please enter your email address. You will receive a link to create a new password.</p>
+
+        <form class="cd-form">
+          <p class="fieldset">
+            <label class="image-replace cd-email" for="reset-email">E-mail</label>
+            <input class="full-width has-padding has-border" id="reset-email" type="email" placeholder="E-mail">
+            <span class="cd-error-message">Error message here!</span>
+          </p>
+
+          <p class="fieldset">
+            <input class="full-width has-padding" type="submit" value="Reset password">
+          </p>
+        </form>
+
+        <p class="cd-form-bottom-message"><a href="#0">Back to log-in</a></p>
+      </div> <!-- cd-reset-password -->
+      <a href="#0" class="cd-close-form">Close</a>
+    </div> <!-- cd-user-modal-container -->
+  </div> <!-- cd-user-modal -->
+
+   <script type="text/javascript">
+  function login_func() {
+    document.getElementById("form_login").submit();
+   }  
+
+   function register_func() {
+    document.getElementById("form_register").submit();
+   }   
+  </script>
+
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="js/main.js"></script> <!-- Gem jQuery -->
+
+
 
 
 
 <div style="padding-top: 40px">
 
 
-<div class="container">
-    <div class="row"><br />
-        <div class="col-md-12">
-            <div class="prg">
-                <div class="prg success-color" id="div_value" style="width: 56%;">
-                    <div class="success-label">56%
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>         
-    
-</div>
 
 <?php
 

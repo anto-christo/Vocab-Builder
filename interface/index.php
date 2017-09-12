@@ -257,6 +257,12 @@ stroke-dashoffset:0
     
     <nav class="main-nav">
       <ul>
+      <li class="navbar-header nav_head">INEPTER </li>
+        <li><a class="nav_designhome " href="#">Home</a></li>
+              <li><a class="nav_designtest" href="#">Test</a></li>
+
+
+
         <!-- inser more links here -->
         <?php
           if(!$_SESSION["loggedin"]){

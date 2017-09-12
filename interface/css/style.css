@@ -88,7 +88,7 @@ header[role=banner]::after {
 }
 
 .main-nav {
-  float: right;
+  float: left;
   margin-right: 5%;
   width: 44px;
   height: 100%;
@@ -159,16 +159,62 @@ header[role=banner]::after {
     line-height: normal;
     background: transparent;
   }
-  .main-nav a.cd-signin, .main-nav a.cd-signup {
+  .main-nav a.cd-signin {
+    margin-left: 500px;
     padding: .6em 1em;
     border: 1px solid rgba(255, 255, 255, 0.6);
     border-radius: 50em;
   }
   .main-nav a.cd-signup {
+    padding: .6em 1em;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 50em;
     background: #2f889a;
     border: none;
   }
 }
+
+.nav_head{
+  font-size: 30px;
+  font-family: "Comic Sans MS", cursive, sans-serif ;
+  color: #ffffff;
+}
+
+
+.main-nav a.nav_designhome{
+  margin-left: 20px;
+  padding: .6em 1em;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 50em;
+    background: #2f889a;
+    border: none;
+
+}
+
+
+.main-nav a.nav_designtest{
+  padding: .6em 1em;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 50em;
+    background: #2f889a;
+    border: none;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* -------------------------------- 
 
