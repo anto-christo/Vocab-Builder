@@ -438,112 +438,269 @@ stroke-dashoffset:0
 
 
 
+
 <div class="container" style="padding-top: 40px">
 <div class="col-md-8" >
-<div class="well well-lg" style="background-color: rgb(255,255,255)">
 
 <form method="POST" action="index.php">
+
+<div class="well well-lg" style="background-color: rgb(255,255,255)">
+
+
 <div class="row text-center">
-  <div class="col-sm-4"  align="center">
-    <div class="thumbnail">
-      <div class="circle1" >
+  <div class="col-sm-2"  align="center">
+    
+
+  </div>
+
+<div class="col-sm-4"  align="center">
+    
+
+    <button type="submit" name="deck_name" value="science" class="btn btn-link">
+      <div>
+      <div class="circle1" style="margin-bottom:5px">
+
+            
       <img src="img/science.png">
     
       </div>
-      <p><strong class="deckdecor">Science</strong></p>
-      <button type="submit" name="deck_name" value="science" class="button button1">Learn</button>
-    </div>
+      <b class="deckdecor">Science</b>
+      </div>
+      </button>
+      
   </div>
 
-   <div class="col-sm-4"  align="center">
-    <div class="thumbnail">
-      <div class="circle1" >
-      <img src="img/Medicine.png">
+
+
+
+
+<div class="col-sm-4"  align="center">
+    
+
+    <button type="submit" name="deck_name" value="medicine" class="btn btn-link">
+      <div>
+      <div class="circle1" style="margin-bottom:5px">
+
+            
+      <img src="img/medicine.png">
     
       </div>
-      <p><strong class="deckdecor">Medicine</strong></p>
-      <button type="submit" name="deck_name" value="medicine" class="button button1">Learn</button>
-    </div>
+      <b class="deckdecor">Medicine</b>
+      </div>
+      </button>
+      
+  </div>
+  
+
+</div>
+
+
+
+
+<div class="row text-center">
+  <div class="col-sm-2"  align="center">
+    
+
+  </div>
+
+<div class="col-sm-4"  align="center">
+    
+
+    <button type="submit" name="deck_name" value="war" class="btn btn-link">
+      <div>
+      <div class="circle1" style="margin-bottom:5px">
+
+            
+      <img src="img/war.png">
+    
+      </div>
+      <b class="deckdecor">War</b>
+      </div>
+      </button>
+      
+  </div>
+
+
+
+
+
+<div class="col-sm-4"  align="center">
+    
+
+    <button type="submit" name="deck_name" value="nature" class="btn btn-link">
+      <div>
+      <div class="circle1" style="margin-bottom:5px">
+
+            
+      <img src="img/nature.png">
+    
+      </div>
+      <b class="deckdecor">Nature</b>
+      </div>
+      </button>
+      
+  </div>
+  
+
+</div>
+
+
+
+<div class="row text-center">
+
+<div class="col-sm-4"  align="center">
+    
+
   </div>
 
   <div class="col-sm-4"  align="center">
-    <div class="thumbnail">
-      <div class="circle1" >
-      <img src="img/Nature.png">
+    
+
+    <button type="submit" name="deck_name" value="religion" class="btn btn-link">
+      <div>
+      <div class="circle1" style="margin-bottom:5px">
+
+            
+      <img src="img/religion.png">
     
       </div>
-      <p><strong class="deckdecor">Nature</strong></p>
-      <button type="submit" name="deck_name" value="nature" class="button button1">Learn</button>
-    </div>
-  </div>
-
-<!--   <div class="col-sm-4" align="center">
-    <div class="thumbnail">
-      <div class="circle1" >
-      <img src="img/Medicine.png">
-    
+      <b class="deckdecor">Religion</b>
       </div>
-      <p><strong>Medicine</strong></p>
-
-      <button class="btn">Learn</button>
-    </div>
-  </div>
-  <div class="col-sm-4" align="center">
-    <div class="thumbnail">
-      <div class="circle1" >
-      <img src="img/Nature.png">
-    
-      </div>
-      <p><strong class="deckdecor">Nature</strong></p>
-            <button class="btn">Learn</button>
-
+      </button>
       
-    </div>
-  </div> -->
+  </div>
+
+   
+  
+
 </div>
+
+
+
+
+
+
+<div class="row text-center">
+
+
+<div class="col-sm-4"  align="center">
+    
+
+    <button type="submit" name="deck_name" value="education" class="btn btn-link">
+      <div>
+      <div class="circle1" style="margin-bottom:5px">
+
+            
+      <img src="img/education.png">
+    
+      </div>
+      <b class="deckdecor">Education</b>
+      </div>
+      </button>
+      
+  </div>
+
+
+
+
+
+<div class="col-sm-4"  align="center">
+    
+
+    <button type="submit" name="deck_name" value="biology" class="btn btn-link">
+      <div>
+      <div class="circle1" style="margin-bottom:5px">
+
+            
+      <img src="img/biology.png">
+    
+      </div>
+      <b class="deckdecor">Biology</b>
+      </div>
+      </button>
+      
+  </div>
+
+
+
+
+
+<div class="col-sm-4"  align="center">
+    
+
+    <button type="submit" name="deck_name" value="animal" class="btn btn-link">
+      <div>
+      <div class="circle1" style="margin-bottom:5px">
+
+            
+      <img src="img/animal.png">
+    
+      </div>
+      <b class="deckdecor">Animal</b>
+      </div>
+      </button>
+      
+  </div>
+  
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 </div>
 </form>
 
-
-
-
-
-<!--
-
-<div class="well well-lg">
-   
-
-  <div class="col-md-6">
-    <div class="deckalign">
-    <a href="deck1.html" style="text-decoration:none">
-      <div class="circle1" >
-      <img src="img/science.png">
-    
-      </div>
-      <div align="left" style="padding:25px">
-      <h2>Science</h2>
-      </div>
-    </a>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="deckalign">
-    <a href="deck1.html" style="text-decoration:none">
-      <div class="circle1" >
-      <img src="img/science.png">
-    
-      </div>
-      <div align="left" style="padding:25px">
-      <h2>Science</h2>
-      </div>
-    </a>
-    </div>
-
-
-  </div>
 </div>
--->
 
+
+ <div class="col-md-4">
+ <div class="well well-lg" style="background-color: rgb(255,255,255)">
+
+
+  <div class="prog">
+  <!--  Item  -->
+  <!--  Item  -->
+  <!--  Item  -->
+  <div data-name="Daily Goal" data-percent="13%" align="center"> <svg viewBox="-10 -10 220 220">
+    <g fill="none" stroke-width="12" transform="translate(100,100)">
+      <path d="M 0,-100 A 100,100 0 0,1 86.6,-50" stroke="url(#cl1)"/>
+      <path d="M 86.6,-50 A 100,100 0 0,1 86.6,50" stroke="url(#cl2)"/>
+      <path d="M 86.6,50 A 100,100 0 0,1 0,100" stroke="url(#cl3)"/>
+      <path d="M 0,100 A 100,100 0 0,1 -86.6,50" stroke="url(#cl4)"/>
+      <path d="M -86.6,50 A 100,100 0 0,1 -86.6,-50" stroke="url(#cl5)"/>
+      <path d="M -86.6,-50 A 100,100 0 0,1 0,-100" stroke="url(#cl6)"/>
+    </g>
+    </svg> <svg viewBox="-10 -10 220 220">
+    <path d="M200,100 C200,44.771525 155.228475,0 100,0 C44.771525,0 0,44.771525 0,100 C0,155.228475 44.771525,200 100,200 C155.228475,200 200,155.228475 200,100 Z" stroke-dashoffset="81"></path>
+    </svg> </div>
+  <!--  Item  -->
+ 
+</div>
+
+
+  </div>
+
+<div class="well well-lg" style="background-color: rgb(255,255,255)">
+<div >
+<div>
+  <h2 align="center" style="margin-bottom:20px">Total Progress</h2>
+      <div class="w3-container w3-blue w3-round-large" style="width:25%">25%</div>
+      </div>
+</div>
+</div>
+
+  </div>
+  
 </div>
 
 
