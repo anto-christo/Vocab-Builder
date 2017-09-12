@@ -8,7 +8,7 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $sql = "SELECT id, question, option1, option2, option3, option4, answer FROM questions ORDER BY RAND() LIMIT 5";
+    $sql = "SELECT id, question, option1, option2, option3, option4, answer FROM questions WHERE review=1 ORDER BY RAND() LIMIT 5";
     $result = $conn->query($sql);
 
 ?>

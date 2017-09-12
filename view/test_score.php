@@ -1,6 +1,7 @@
 <?php
 	session_start();
 
+	echo $_SESSION['score'];
 	$score = 5-$_SESSION['score'];
 
 	echo '

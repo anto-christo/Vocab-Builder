@@ -5,8 +5,22 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $sql = "SELECT id, question, option1, option2, option3, option4, answer FROM questions";
+    $sql = "SELECT id, question, option1, option2, option3, option4, answer FROM questions WHERE review=0";
 	$result = $conn->query($sql);
+
+    if(isset($_POST['review_btn'])){
+        $id = $_POST['review_btn'];
+
+        $set_review = "UPDATE questions SET review=1 WHERE id='$id'";
+
+        if($conn->query($set_review) === TRUE){
+            echo '
+                <script>alert("Question posted successfully");</script>
+            ';
+
+            header("location: review_test.php");
+        }
+    }
 
 ?>
 
@@ -25,7 +39,7 @@ if ($result->num_rows > 0) {
 
             $func_name = 'a'.$row["id"];
         	
-        	echo '<center><div id="'.$row["id"].'" class="table table-striped table-inverse" style="width: 50%;height: 400px;border: 1px solid gray;border-radius: 25px;float:left;">
+        	echo '<form method="POST" action="review_test.php"><center><div id="'.$row["id"].'" class="table table-striped table-inverse" style="width: 50%;height: 400px;border: 1px solid gray;border-radius: 25px;float:left;">
                 <table width="600px" height="400px">
         <tr>
             <td>
@@ -89,11 +103,11 @@ if ($result->num_rows > 0) {
 
         <tr>
             <td colspan="2">
-                <center><button onclick="'.$func_name.'()" type="button" class="btn btn-info">Post</button></center>
+                <center><button onclick="'.$func_name.'()" name="review_btn" value="'.$row["id"].'" type="submit" class="btn btn-info">Post</button></center>
             </td>
         </tr>
     </table>
-                </div></center>';
+                </div></center></form>';
 
         echo 
         '

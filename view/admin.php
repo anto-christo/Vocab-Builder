@@ -35,7 +35,7 @@
 <table class="table" border="1px">
   <tr>
     <th>Name</th>
-    <th>Usename</th>
+    <th>Username</th>
     <th>Email</th>
   </tr>
 
