@@ -1,7 +1,6 @@
 <?php
 	session_start();
-
-	echo $_SESSION['score'];
+	
 	$score = 5-$_SESSION['score'];
 
 	echo '
@@ -39,7 +38,7 @@
 </nav>
 
 <center>
-	<div style="margin:5%; border: 1px solid gray;padding:10px;background-color:blue">
+	<div style="margin:5%; border: 1px solid gray;padding:10px;background-color:black">
 		<p style="font-size:50px;color:white">You Got</p>
 		<p style="font-size:50px;color:white">'.$score.'/5</p>
 		<p style="font-size:50px;color:white">Correct !!</p>

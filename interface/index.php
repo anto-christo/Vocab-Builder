@@ -258,8 +258,8 @@ stroke-dashoffset:0
     <nav class="main-nav">
       <ul>
       <li class="navbar-header nav_head">INEPTER </li>
-        <li><a class="nav_designhome " href="#">Home</a></li>
-              <li><a class="nav_designtest" href="#">Test</a></li>
+        <li><a class="nav_designhome " href="index.php">Home</a></li>
+              <li><a class="nav_designtest" href="../view/view_test.php">Test</a></li>
 
 
 
@@ -286,6 +286,12 @@ stroke-dashoffset:0
             if($_SESSION["type"] == "lit_pro"){
               echo '
                 <li><a href="../view/lit_expert.html"><button name="dashboard" class="btn btn-success">Dashboard</button></a></li>
+              ';
+            }
+
+            if($_SESSION["type"] == "admin"){
+              echo '
+                <li><a href="../view/admin.php"><button name="dashboard" class="btn btn-success">Dashboard</button></a></li>
               ';
             }
           }

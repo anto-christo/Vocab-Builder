@@ -71,8 +71,8 @@
     <nav class="main-nav">
       <ul>
       <li class="navbar-header nav_head">INEPTER </li>
-        <li><a class="nav_designhome " href="#">Home</a></li>
-              <li><a class="nav_designtest" href="#">Test</a></li>
+        <li><a class="nav_designhome " href="../interface/index.php">Home</a></li>
+              <li><a class="nav_designtest" href="../interface/view_test.php">Test</a></li>
 
 
 
@@ -312,10 +312,8 @@
 	<a href="#'.$row["id"].'"><button class="iknow" onclick="rotateCard(this)"  ">I know this word</button></a>
 	</div>
 	<div class="toppadding">
-	<a href="#'.$row["id"].'"><button class="idont" onclick="rotateCard(this)" style="padding-top:20px">I know this word</button></a>
+	<a href="#'.$row["id"].'"><button class="idont" onclick="rotateCard(this)" style="padding-top:20px">I do not know this word</button></a>
 	</div>
-
-  <button onclick="myFunction()">Try it</button>
 
 <script>
  var inc=0;
@@ -347,6 +345,8 @@
 	}
 
 ?>
+
+<center><a href="index.php"><button type="button" class="btn btn-success">Completed</button></a></center>
 
 </body>
 </html>

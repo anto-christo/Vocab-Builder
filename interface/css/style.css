@@ -88,7 +88,7 @@ header[role=banner]::after {
 }
 
 .main-nav {
-  float: left;
+  float: right;
   margin-right: 5%;
   width: 44px;
   height: 100%;
